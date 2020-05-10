@@ -1,0 +1,76 @@
+
+<mat-card class="example-card">
+  <mat-card-header>
+  </mat-card-header>
+  <mat-card-content>
+    <div>
+
+      <mat-form-field class="example-full-width" class="margin15px">
+        <mat-label>Company</mat-label>
+        <input matInput placeholder="Search Company" [(ngModel)]="company">
+      </mat-form-field>
+
+     <mat-form-field  class="margin15px">
+      <mat-label>Select Exchange</mat-label>
+      <mat-select [(ngModel)]="exchange">
+        <mat-option *ngFor="let exchange of exchanges" [value]="exchange.id">
+          {{exchange.value}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <mat-form-field class="margin15px">
+      <mat-label>Select Limit</mat-label>
+      <mat-select [(ngModel)]="limit">
+        <mat-option *ngFor="let limit of limits" [value]="limit.id">
+          {{limit.value}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+     <button  class="margin15px" mat-raised-button color="primary" (click)="searchTable()">Search</button>
+
+<div *ngIf="isVisible">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+    
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+    
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="symbol">
+        <th mat-header-cell *matHeaderCellDef> Symbol </th>
+        <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+      </ng-container>
+    
+      <!-- Currency Column -->
+      <ng-container matColumnDef="currency">
+        <th mat-header-cell *matHeaderCellDef> Currency </th>
+        <td mat-cell *matCellDef="let element"> {{element.currency}} </td>
+      </ng-container>
+    
+      <!-- Stock Exchange Column -->
+      <ng-container matColumnDef="stockExchange">
+        <th mat-header-cell *matHeaderCellDef> Stock Exchange </th>
+        <td mat-cell *matCellDef="let element"> {{element.stockExchange}} </td>
+      </ng-container>
+
+      <!-- Details Column -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Details </th>
+        <td mat-cell *matCellDef="let element"><button pButton type="button" (click)="downloadStatement(element)" >Download Statement</button></td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+  </div>
+  </mat-card-content>
+</mat-card>
+
